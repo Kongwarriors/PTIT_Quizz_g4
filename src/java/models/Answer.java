@@ -4,30 +4,22 @@
  */
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author PC
  */
-public class Question {
+public class Answer {
     private int id;
     private String content;
-    private String difficulty;
-    private List<Answer> answers = new ArrayList<>();
-    
-    public Question() {
-    }
-    public Question(int id, String content) {
-        this.id = id;
-        this.content = content;
+    private int correct;
+
+    public Answer() {
     }
 
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
@@ -40,11 +32,11 @@ public class Question {
         this.content = content;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
+    public int getCorrect() {
+        return correct;
     }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+    public void setCorrect(int correct) {
+        this.correct = correct;
     }
 }

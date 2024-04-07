@@ -4,10 +4,20 @@
  */
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import models.Question;
+
 /**
  *
  * @author PC
  */
 public class QuestionDAO extends DAO{
-    
+    public Question getQuestionById(int questionId){
+        Question question = new Question();
+        try{
+            String queryGetQuestions = "SELECT * FROM questions WHERE "
+        }
+        return question;
+    }
 }
