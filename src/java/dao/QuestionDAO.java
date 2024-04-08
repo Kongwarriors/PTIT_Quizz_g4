@@ -4,6 +4,9 @@
  */
 package dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import models.Question;
@@ -15,8 +18,20 @@ import models.Question;
 public class QuestionDAO extends DAO{
     public Question getQuestionById(int questionId){
         Question question = new Question();
+        question.setId(questionId);
+        AnswerDAO answerDAO = new AnswerDAO();
         try{
-            String queryGetQuestions = "SELECT * FROM questions WHERE "
+            String selectQuestionsQuery = "SELECT * FROM questions WHERE id = ?";
+            PreparedStatement selectQuestionsPs = connection.prepareCall(selectQuestionsQuery);
+            selectQuestionsPs.setString(1, String.valueOf(questionId));
+            ResultSet selectQuestionsRs = selectQuestionsPs.executeQuery();
+            while(selectQuestionsRs.next()){
+                question.setContent(selectQuestionsRs.getString("content"));
+                question.setDifficulty(selectQuestionsRs.getString("difficulty"));
+                question.setAnswers(answerDAO.getAnswesByQuestionId(questionId));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
         }
         return question;
     }

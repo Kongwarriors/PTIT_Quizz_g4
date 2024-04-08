@@ -21,6 +21,7 @@ public class ExamDAO extends DAO{
     public List<Exam> getAllExam(){
         List<Exam> exams = new ArrayList<>();
         String querySelect = "SELECT * FROM Exams";
+        ExamQuestionDAO examQuestionDAO = new ExamQuestionDAO();
         try{
             PreparedStatement querySelectPs = connection.prepareCall(querySelect);
             ResultSet rs = querySelectPs.executeQuery();
@@ -41,7 +42,8 @@ public class ExamDAO extends DAO{
                 Timestamp createAt = rs.getTimestamp("created_at");
                 if(createAt != null){
                     exam.setCreatedAt(createAt.toLocalDateTime());
-                }       
+                }
+                exam.setExamQuestions(examQuestionDAO.getExamQuestionByExamId(id));
                 exams.add(exam);
             }
         }catch(SQLException e){

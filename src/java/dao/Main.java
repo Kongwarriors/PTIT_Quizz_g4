@@ -4,9 +4,12 @@
  */
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
+import models.Answer;
 import models.Exam;
 import models.ExamQuestion;
+import models.Question;
 import models.User;
 
 /**
@@ -29,12 +32,32 @@ public class Main {
 //        List<Exam> exams = examDAO.getAllExam();
 //        for(Exam exam : exams){
 //            System.out.println(exam.getCreatedAt());
+//            List<ExamQuestion> examQuestions = exam.getExamQuestions();
+//            for(ExamQuestion examQuestion : examQuestions){
+//                System.out.println("Question id : ");
+//                System.out.println(examQuestion.getQuestionId());
+//            }
 //        }
         //Test getQuestionByExamId()
-            ExamQuestionDAO examQuestionDAO = new ExamQuestionDAO();
-            List<ExamQuestion> examQuestions = examQuestionDAO.geExamQuestionByExamId(1);
-            for(ExamQuestion examQuestion : examQuestions){
-                System.out.println(examQuestion.getQuestionId());
-            }
+//        ExamQuestionDAO examQuestionDAO = new ExamQuestionDAO();
+//        List<ExamQuestion> examQuestions = examQuestionDAO.geExamQuestionByExamId(1);
+//        for(ExamQuestion examQuestion : examQuestions){
+//            System.out.println(examQuestion.getQuestionId());
+//        }
+        //Test getAnswerByQuestionId()
+//        AnswerDAO answerDAO = new AnswerDAO();
+//        List<Answer> answers = answerDAO.getAnswesByQuestionId(2);
+//        for(Answer answer : answers){
+//            System.out.println(answer.getContent());
+//        }
+        //Test getQuestionById(){
+        QuestionDAO questionDAO = new QuestionDAO();
+        Question question = questionDAO.getQuestionById(1);
+        System.out.println(question.getContent());
+        System.out.println(question.getDifficulty());
+        List<Answer> answers = question.getAnswers();
+        for(Answer answer : answers){
+            System.out.println(answer.getContent());
+        }
     }
 }

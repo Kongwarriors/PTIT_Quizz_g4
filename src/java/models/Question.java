@@ -47,4 +47,12 @@ public class Question {
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
 }

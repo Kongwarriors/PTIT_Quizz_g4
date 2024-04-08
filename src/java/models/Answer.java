@@ -11,7 +11,7 @@ package models;
 public class Answer {
     private int id;
     private String content;
-    private int correct;
+    private boolean correct;
 
     public Answer() {
     }
@@ -32,11 +32,11 @@ public class Answer {
         this.content = content;
     }
 
-    public int getCorrect() {
+    public boolean getCorrect() {
         return correct;
     }
 
-    public void setCorrect(int correct) {
+    public void setCorrect(boolean correct) {
         this.correct = correct;
     }
 }

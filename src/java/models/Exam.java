@@ -18,7 +18,7 @@ public class Exam {
     private String title;
     private String status;
     private LocalDateTime scheduleTime;
-    private List<Question> questions = new ArrayList<>();
+    private List<ExamQuestion> examQuestions = new ArrayList<>();
     private String description;
     private LocalDateTime createdAt;
     public Exam() {
@@ -56,12 +56,12 @@ public class Exam {
         this.scheduleTime = scheduleTime;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
+    public List<ExamQuestion> getExamQuestions() {
+        return examQuestions;
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    public void setExamQuestions(List<ExamQuestion> examQuestions) {
+        this.examQuestions = examQuestions;
     }
 
     public String getDescription() {

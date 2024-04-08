@@ -17,7 +17,7 @@ import models.Question;
  * @author PC
  */
 public class ExamQuestionDAO extends DAO{
-    public List<ExamQuestion> geExamQuestionByExamId(int examId){
+    public List<ExamQuestion> getExamQuestionByExamId(int examId){
         List<ExamQuestion> examQuestions = new ArrayList<>();
         try{
             String queryGetQuestions = "SELECT * FROM exam_questions WHERE exam_id = ?";
