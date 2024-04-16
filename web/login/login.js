@@ -31,10 +31,10 @@ function handleLoginResponse(response){
     if(response.success){
         if(response.role === "user"){
             console.log("hello");
-            window.location.href = "../user/jsps/userhome.jsp";
+            window.location.href = "../user/jsps/homepage.jsp";
         }
         else if(response.role === "admin"){
-            window.location.href = "../admin/jsps/adminhome.jsp";
+            window.location.href = "../admin/jsps/homepage.jsp";
         }
         else{
             errorMessage.textContent = response.message;

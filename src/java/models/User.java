@@ -4,6 +4,8 @@
  */
 package models;
 
+import com.google.gson.Gson;
+
 /**
  *
  * @author PC
@@ -62,6 +64,12 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String toJSON() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

@@ -4,7 +4,11 @@
  */
 package models;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializer;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,5 +84,14 @@ public class Exam {
         this.createdAt = createdAt;
     }
     
-    
+    public String toJSON() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (localDateTime, type, jsonSerializationContext) ->
+                        jsonSerializationContext.serialize(localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
+                .create();
+//       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");
+//        Gson gson;
+//        gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTime(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        return gson.toJson(this);
+    }
 }

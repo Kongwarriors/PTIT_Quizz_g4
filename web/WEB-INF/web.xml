@@ -1,14 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>controllers.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserHomePage</servlet-name>
+        <servlet-class>controllers.UserHomePage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoExamPage</servlet-name>
+        <servlet-class>controllers.DoExamPage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>controllers.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveUserExamAnswer</servlet-name>
+        <servlet-class>controllers.SaveUserExamAnswer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserHomePage</servlet-name>
+        <url-pattern>/userhomepage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoExamPage</servlet-name>
+        <url-pattern>/doexampage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/registerservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveUserExamAnswer</servlet-name>
+        <url-pattern>/SaveUserExamAnswer</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ketquaServlet</servlet-name>
+        <servlet-class>controllers.ketquaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>exportToExcelServlet</servlet-name>
+        <servlet-class>controllers.exportToExcelServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>questionServlet</servlet-name>
+        <servlet-class>controllers.questionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentServlet</servlet-name>
+        <servlet-class>controllers.StudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ketquaServlet</servlet-name>
+        <url-pattern>/ketquaServlet</url-pattern>
+    </servlet-mapping>
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20210307</version>
+        <!-- Phiên bản có thể khác -->
+    </dependency>
+    <servlet-mapping>
+        <servlet-name>exportToExcelServlet</servlet-name>
+        <url-pattern>/exportToExcelServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>questionServlet</servlet-name>
+        <url-pattern>/questionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentServlet</servlet-name>
+        <url-pattern>/StudentServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

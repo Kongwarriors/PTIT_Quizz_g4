@@ -16,7 +16,7 @@
 <body>
     <div class="register-container">
         <h2 class="register-title">Register Account</h2>
-        <form id="register-form">
+        <form id="register-form" method = "post">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" required>
@@ -36,7 +36,7 @@
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required>
             </div>
-            <button type="submit">Register</button>
+            <button onclick="registerUser()">Register</button>
         </form>
         <p id="error-message" class="error-message"></p>
     </div>

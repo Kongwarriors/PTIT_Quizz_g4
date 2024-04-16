@@ -12,11 +12,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import java.io.BufferedReader;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.CCVALTYPE;
 import models.User;
 import org.json.JSONObject;
 
@@ -24,7 +21,7 @@ import org.json.JSONObject;
  *
  * @author PC
  */
-public class LoginServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,20 +33,20 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet LoginServlet</title>");  
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet LoginServlet at " + request.getContextPath () + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RegisterServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -61,8 +58,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-////        processRequest(request, response);
-//        request.getRequestDispatcher("../login/login.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -86,30 +82,44 @@ public class LoginServlet extends HttpServlet {
         String jsonString = stringBuilder.toString();
         //Xu ly du lieu tu JSON
         JSONObject jsonObject = new JSONObject(jsonString);
+        String email = jsonObject.getString("email");
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
+        String role = jsonObject.getString("role");
         //Get data from form
         log(username);
         log(password);
+        log(email);
         //Xu ly dang nhap va tra ket qua
         JSONObject jsonResponse = new JSONObject();
         User u = new User();
         u.setUsername(username);
         u.setPassword(password);
-        boolean res = false;
+        u.setEmail(email);
+        u.setRole(role);
+        int res = 0;
         UserDAO userDAO = new UserDAO();
         if(u != null){
-            res = userDAO.checkLogin(u);
+            res = userDAO.saveNewUser(u);
+            jsonResponse.put("res", res);
         }
-        if (res) {
-            session.setAttribute("userLoggedIn", u);
-            jsonResponse.put("success", true);
-            jsonResponse.put("username", u.getUsername());
-            jsonResponse.put("role", u.getRole());
-        }
-        else {
-            jsonResponse.put("success", false);
-            jsonResponse.put("message", "Username or password is incorrect");
+        switch (res) {
+            case 0:
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Email is exist on system");
+                break;
+            case 1:
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Username is exist on system");
+                break;
+            case 2:
+                jsonResponse.put("success", true);
+                jsonResponse.put("messagee", "Register successed");
+                break;
+            default:
+                jsonResponse.put("success", false);
+                jsonResponse.put("message", "Register failed");
+                break;
         }
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();

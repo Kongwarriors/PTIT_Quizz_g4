@@ -6,6 +6,9 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import models.User;
 
 /**
@@ -39,7 +42,7 @@ public class UserDAO extends DAO {
     public int saveNewUser(User u){
         boolean result = false;
         String querySelectByEmail = "SELECT COUNT(*) AS count FROM Users WHERE email = ?" ;
-        String querySelectByUsername = "SELECT COUNT(*) AS count FROM Users WHERE username = ? AND email = ? ";
+        String querySelectByUsername = "SELECT COUNT(*) AS count FROM Users WHERE username = ?";
         String queryInsert = "INSERT INTO Users (email, username, password, role) values (?, ?, ?, ?)";
         try {
             //Get all user in database
@@ -55,7 +58,6 @@ public class UserDAO extends DAO {
             }
             PreparedStatement selectByUsernamePs = connection.prepareCall(querySelectByUsername);
             selectByUsernamePs.setString(1, u.getUsername());
-            selectByUsernamePs.setString(2, u.getEmail());
             resultSet = selectByUsernamePs.executeQuery();
             if(resultSet.next()){
                 int count = resultSet.getInt("count");
@@ -80,6 +82,105 @@ public class UserDAO extends DAO {
         } catch (Exception e) {
             System.out.println("Lỗi khi thực hiện câu lệnh INSERT: " + e.getMessage());
             return 3; //Failed
+        }
+    }
+    
+    public List<User> getAllUser(){
+        List<User> list = new ArrayList<>();
+        String sql = "select * from users";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                User c = new User(rs.getInt("id"), 
+                        rs.getString("username"), 
+                            rs.getString("password"),
+                        rs.getString("role"),
+                        rs.getString("email")
+                );
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public void addNewUser(User user) {
+        String sql = "INSERT INTO `quizz_system`.`users`\n"
+                + "(`id`,\n"
+                + "`username`,\n"
+                + "`password`,\n"
+                + "`role`,\n"
+                + "`email`)\n"
+                + "VALUES\n"
+                + "(?,?,?,?,?);";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, user.getId());
+            st.setString(2, user.getUsername());
+            st.setString(3, user.getPassword());
+            st.setString(4, user.getRole());
+            st.setString(5, user.getEmail());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public User getUserById(int userId) {
+        String sql = "select * from users where id =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                User c = new User(rs.getInt("id"), 
+                        rs.getString("username"), 
+                            rs.getString("password"),
+                        rs.getString("role"),
+                        rs.getString("email")
+                );
+                return c;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public void deleteUser(int id){
+        String sql = "DELETE FROM `quizz_system`.`users`\n"
+                + "WHERE id = ?;";
+//        int isDelete = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+//            isDelete = st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+//        return isDelete;
+    }
+    
+    public void update(User c){
+        String sql = "UPDATE `quizz_system`.`users`\n"
+                + "SET\n"
+                + "`username` =  ?,\n"
+                + "`password` = ?,\n"
+                + "`role` = ?,\n"
+                + "`email` = ?\n"
+                + "WHERE `id` = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, c.getUsername()); // Chỉ số bắt đầu từ 1
+            st.setString(2, c.getPassword());
+            st.setString(3, c.getRole());
+            st.setString(4, c.getEmail());
+            st.setInt(5, c.getId()); // Chỉ số bắt đầu từ 1
+            st.executeUpdate();
+        } catch (SQLException e) {
         }
     }
 }

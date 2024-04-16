@@ -36,4 +36,88 @@ public class AnswerDAO extends DAO{
         }
         return answers;
     }
+    
+    public Answer getAnswerById(int id){
+        String selectAnswerQuery = "SELECT * FROM answers WHERE id = ?";
+        Answer answer = new Answer();
+        try{
+            PreparedStatement selectAnswerPs = connection.prepareCall(selectAnswerQuery);
+            selectAnswerPs.setString(1, String.valueOf(id));
+            ResultSet selectAnswersRs = selectAnswerPs.executeQuery();           
+            if(selectAnswersRs.next()){                
+                answer.setId(selectAnswersRs.getInt("id"));
+                answer.setContent(selectAnswersRs.getString("content"));
+                answer.setCorrect(selectAnswersRs.getBoolean("is_correct"));             
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return answer;
+    }
+    
+    public void insert(Answer c, int question_id) {
+        String sql = "INSERT INTO `quizz_system`.`answers`\n"
+                + "(`question_id`,\n"
+                + "`content`,\n"
+                + "`is_correct`)\n"
+                + "VALUES\n"
+                + "(?,?,?);";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, question_id);
+            st.setString(2, c.getContent());
+            st.setBoolean(3, c.getCorrect());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    public Answer getAswerById(int id) {
+        String sql = "select * from answers where id =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                Answer answer = new Answer();
+                answer.setContent(rs.getString("content"));
+                answer.setCorrect(rs.getBoolean("is_correct"));
+                answer.setId(id);
+                return answer;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public void delete(int id){
+        String sql = "DELETE FROM `quizz_system`.`answers`\n"
+                + "WHERE id = ?;";
+//        int isDelete = 0;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+//            isDelete = st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+//        return isDelete;
+    }
+    public void update(Answer c){
+        String sql = "UPDATE `quizz_system`.`answers`\n"
+                + "SET\n"
+                + "`content` = ?,\n"
+                + "`is_correct` = ?\n"
+                + "WHERE `id` = ?;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, c.getContent());
+            st.setBoolean(2, c.getCorrect());
+            st.setInt(3, c.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ
+        }
+    }
 }

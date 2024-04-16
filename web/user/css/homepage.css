@@ -1,0 +1,58 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Apr 8, 2024, 7:48:43 PM
+    Author     : PC
+*/
+/* homepage.css */
+
+/* Header */
+.navbar {
+    background-color: #343a40; /* Màu nền header */
+}
+
+.navbar-brand p {
+    margin-bottom: 0; /* Loại bỏ khoảng trống dưới chữ Welcome */
+    font-size: 1.2rem; /* Kích thước chữ Welcome */
+}
+
+/* Container */
+.container mt-5{
+    margin-top: 80px; /* Khoảng cách giữa header và nội dung */
+}
+
+h1 {
+    color: #007bff; /* Màu chữ tiêu đề */
+}
+
+h2 {
+    color: #343a40; /* Màu chữ tiêu đề phụ */
+}
+
+/* Table */
+.table {
+    border: 1px solid #dee2e6; /* Viền bảng */
+}
+
+.table th,
+.table td {
+    padding: 8px; /* Khoảng cách giữa nội dung và viền */
+}
+
+.table th {
+    background-color: #007bff; /* Màu nền tiêu đề cột */
+    color: #fff; /* Màu chữ tiêu đề cột */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa; /* Màu nền các hàng lẻ */
+}
+
+/* Buttons */
+.btn {
+    font-size: 0.9rem; /* Kích thước chữ nút */
+    margin-right: 5px; /* Khoảng cách giữa các nút */
+}
+

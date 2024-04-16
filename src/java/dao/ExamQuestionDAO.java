@@ -36,4 +36,25 @@ public class ExamQuestionDAO extends DAO{
         }
         return examQuestions;
     }
+    
+    public boolean insert(ExamQuestion eQ){
+        String sql = "INSERT INTO `quizz_system`.`exam_questions`\n"
+                + "(`exam_id`,\n"
+                + "`question_id`)\n"
+                + "VALUES\n"
+                + "(?,?);";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, eQ.getExamId());
+            st.setInt(2, eQ.getQuestionId());
+//            st.setInt(2, eQ.getQuestionId());
+//            st.setTimestamp(5, );
+//            st.setString(6, );
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 }

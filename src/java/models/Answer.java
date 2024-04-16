@@ -4,6 +4,8 @@
  */
 package models;
 
+import com.google.gson.Gson;
+
 /**
  *
  * @author PC
@@ -38,5 +40,9 @@ public class Answer {
 
     public void setCorrect(boolean correct) {
         this.correct = correct;
+    }
+    public String toJSON() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

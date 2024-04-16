@@ -40,7 +40,7 @@ public class Main {
 //        }
         //Test getQuestionByExamId()
 //        ExamQuestionDAO examQuestionDAO = new ExamQuestionDAO();
-//        List<ExamQuestion> examQuestions = examQuestionDAO.geExamQuestionByExamId(1);
+//        List<ExamQuestion> examQuestions = examQuestionDAO.getExamQuestionByExamId(1);
 //        for(ExamQuestion examQuestion : examQuestions){
 //            System.out.println(examQuestion.getQuestionId());
 //        }
