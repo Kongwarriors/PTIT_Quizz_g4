@@ -4,6 +4,7 @@
  */
 package models;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,5 +55,10 @@ public class Question {
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
+    }
+    public String toJSON() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

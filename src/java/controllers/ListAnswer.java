@@ -60,7 +60,27 @@ public class ListAnswer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        String q_id_raw = request.getParameter("id");
+        int q_id;
+//        log(exam_id_raw);
+        out.println(q_id_raw);
+        try {
+            q_id = Integer.parseInt(q_id_raw);
+            AnswerDAO u = new AnswerDAO();
+            List<Answer> ds = u.getAll(q_id);
+            out.println("[");
+            for (int i = 0; i < ds.size(); i++) {
+                out.println(ds.get(i).toJSON());
+                if (i < ds.size() - 1) {
+                    out.println(",");
+                }
+            }
+            out.println("]");
+        } catch (NumberFormatException e) {
+            out.println("{\"message\": \"Question ID has wrong format or unexisted.\"}");
+        }
     } 
 
     /** 

@@ -17,6 +17,26 @@ import org.apache.tomcat.util.net.SSLHostConfigCertificate;
  * @author PC
  */
 public class AnswerDAO extends DAO{
+    public List<Answer> getAll(int q_id) {
+        List<Answer> list = new ArrayList<>();
+        String sql = "SELECT * FROM answers where question_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, q_id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                Answer answer = new Answer();
+                answer.setContent(rs.getString("content"));
+                answer.setCorrect(rs.getBoolean("is_correct"));
+                answer.setQuestion_id(q_id);
+                answer.setId(rs.getInt("id"));
+                list.add(answer);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public List<Answer> getAnswesByQuestionId(int questionId){
         List<Answer> answers = new ArrayList<>();
         String selectAnswerQuery = "SELECT * FROM answers WHERE question_id = ?";

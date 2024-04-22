@@ -12,9 +12,21 @@ import com.google.gson.Gson;
  */
 public class Answer {
     private int id;
+    private int question_id;
     private String content;
     private boolean correct;
 
+    public void setQuestion_id(int question_id) {
+        this.question_id = question_id;
+    }
+    
+    public int getQuestion_id() {
+        return question_id;
+    }
+
+    public boolean isCorrect() {
+        return correct;
+    }
     public Answer() {
     }
 
