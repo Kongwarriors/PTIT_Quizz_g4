@@ -17,6 +17,27 @@ import models.Question;
  * @author PC
  */
 public class QuestionDAO extends DAO{
+    public List<Question> getAll(int exam_id){
+        List<Question> list = new ArrayList<>();
+        String sql = "select questions.* from questions left join exam_questions \n"
+                + "on questions.id = exam_questions.question_id\n"
+                + "where exam_questions.exam_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, exam_id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Question c = new Question();
+                c.setContent(rs.getString("content"));
+                c.setDifficulty(rs.getString("difficulty"));
+                c.setId(rs.getInt("id"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public Question getQuestionById(int questionId){
         Question question = new Question();
         question.setId(questionId);
@@ -113,5 +134,10 @@ public class QuestionDAO extends DAO{
         } catch (SQLException e) {
             // Xử lý ngoại lệ
         }
+    }
+    public static void main(String[] args) {
+        QuestionDAO qDao = new QuestionDAO();
+        List<Question> lst = qDao.getAll(2);
+        System.out.println(lst.get(0).toJSON());
     }
 }
